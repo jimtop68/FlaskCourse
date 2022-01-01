@@ -11,63 +11,66 @@
         <div class="col-md-6 login-form-1 ">
             <h3>Σελίδα Εγγραφής</h3>
             <form action="#" method="POST">
-                <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="username"
-                     name="username" aria-label="username" aria-describedby="basic-addon1">
-                     <div id="usernameHelp" class="form-text">
-                         Παρακαλώ δώστε username</div>
-                    <!--<ul class="errors">
-                        <li class="allert text-danger">
 
-                        </li>
-
-                    </ul>         -->
-                </div>
+                {{ form.hidden_tag() }}
 
                 <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="email"
-                     name="email" aria-label="email" aria-describedby="basic-addon1">
-                     <div id="emailHelp" class="form-text">
-                         Παρακαλώ δώστε email</div>
-                    <!--<ul class="errors">
-                        <li class="allert text-danger">
+                    {{ form.username.label(class="form-label") }}
+                    {{ form.username(class="form-control", required=False) }}
+                    <div id="usernameHelp" class="form-text">Παρακαλώ δώστε username</div>
 
-                        </li>
-
-                    </ul>         -->
+                    {% if form.username.errors %}
+                        <ul class="errors">
+                            {% for error in form.username.errors %}
+                                <li class="alert text-danger">
+                                    {{ error }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
                 </div>
+              <div class="mb-3">
+                {{ form.email.label(class="form-label") }}
+                {{ form.email(class="form-control", required=False) }}
+                <div id="emailHelp" class="form-text">Παρακαλώ δώστε email.</div>
+                    {% if form.email.errors %}
+                    <ul class=errors>
+                    {% for error in form.email.errors %}
+                      <li class="alert text-danger">{{ error }}</li>
+                    {% endfor %}
+                    </ul>
+                  {% endif %}
+              </div>
+
+              <div class="mb-3">
+                {{ form.password.label(class="form-label") }}
+                {{ form.password(class="form-control", type="password", required=False) }}
+                <div id="passwordHelp" class="form-text">Παρακαλώ δώστε password.</div>
+                    {% if form.password.errors %}
+                    <ul class=errors>
+                    {% for error in form.password.errors %}
+                      <li class="alert text-danger">{{ error }}</li>
+                    {% endfor %}
+                    </ul>
+                  {% endif %}
+              </div>
+
+              <div class="mb-3">
+                {{ form.password2.label(class="form-label") }}
+                {{ form.password2(class="form-control", type="password", required=False) }}
+                <div id="password2Help" class="form-text">Παρακαλώ επιβεβαιώστε το password.</div>
+                    {% if form.password2.errors %}
+                    <ul class=errors>
+                    {% for error in form.password2.errors %}
+                      <li class="alert text-danger">{{ error }}</li>
+                    {% endfor %}
+                    </ul>
+                  {% endif %}
+              </div>
 
                 <div class="mb-3">
-                    <input type="password" class="form-control" placeholder="password"
-                     name="password" aria-label="password" aria-describedby="basic-addon1">
-                     <div id="passwordHelp" class="form-text">
-                         Παρακαλώ δώστε password</div>
-                    <!--<ul class="errors">
-                        <li class="allert text-danger">
-
-                        </li>
-
-                    </ul>         -->
+                    {{ form.submit(class="btn btn-primary") }}
                 </div>
-
-                <div class="mb-3">
-                    <input type="password" class="form-control" placeholder="επιβεβαίωση password"
-                     name="password2" aria-label="password2" aria-describedby="basic-addon1">
-                     <div id="password2Help" class="form-text">
-                         Παρακαλώ επιβεβαιώστε το password</div>
-                    <!--<ul class="errors">
-                        <li class="allert text-danger">
-
-                        </li>
-
-                    </ul>         -->
-                </div>
-                <div class="mb-3">
-                    <button type="submit" class="btn btn-primary">
-                        Αποστολή
-                    </button>
-                </div>
-
 
             </form>
         </div>

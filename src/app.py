@@ -1,8 +1,11 @@
 from flask import (Flask, render_template, redirect, url_for, request)
 from flask.json import htmlsafe_dump
-import json
+from forms import SignupForm
 
 app=Flask(__name__)
+
+app.config["SECRET_KEY"]='d75ba86078abfa8e55f07ca205fc220b3924d0571f465c87a1a8ad1ecfc13e2c'
+
 
 @app.route("/index/")
 @app.route("/")
@@ -11,15 +14,17 @@ def root():
 
 @app.route("/signup/", methods=["GET", "POST"])
 def signup():
-    if request.method=="POST":
-        username=request.form["username"]
-        email=request.form["email"]
-        password=request.form["password"]
-        password2=request.form["password2"]
+
+    form=SignupForm()
+    if request.method=="POST" and form.validate_on_submit() :
+        username=form.username.data
+        email=form.email.data
+        password=form.password.data
+        password2=form.password2.data
         print(username, " ",email, " ",password," ",password2)
     
 
-    return render_template("signup.html")
+    return render_template("signup.html", form=form)
 
 @app.route("/login/")
 def login():
