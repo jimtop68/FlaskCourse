@@ -1,6 +1,6 @@
-from flask import (Flask, render_template, redirect, url_for, request)
+from flask import (Flask, render_template, redirect, url_for, request, flash)
 from flask.json import htmlsafe_dump
-from forms import SignupForm
+from forms import SignupForm, LoginForm, NewArticleForm
 
 app=Flask(__name__)
 
@@ -26,17 +26,34 @@ def signup():
 
     return render_template("signup.html", form=form)
 
-@app.route("/login/")
+@app.route("/login/", methods=["GET", "POST"])
 def login():
-    return render_template("login.html")
+
+    form=LoginForm()
+    if request.method=="POST" and form.validate_on_submit() :
+       
+        email=form.email.data
+        password=form.password.data
+        flash("Η είσοδος του χρήστη στη σελίδα μας έγινε με επιτυχία")
+     
+        print(email, " ",password)
+    return render_template("login.html", form=form)
 
 @app.route("/logout/")
 def logout():
     return redirect(url_for("root"))
 
-@app.route("/new_article/")
+@app.route("/new_article/", methods=["GET", "POST"])
 def new_article():
-    return render_template("new_article.html")
+    form=NewArticleForm()
+    if request.method=="POST" and form.validate_on_submit() :
+       
+        article_title=form.article_title.data
+        article_body=form.article_body.data
+     
+        print(article_title, " ",article_body)
+
+    return render_template("new_article.html", form=form)
 
 
 
